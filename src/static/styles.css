@@ -476,6 +476,89 @@ footer {
   font-size: 0.8rem;
 }
 
+/* Social sharing */
+.share-bar {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-light);
+  margin-top: 8px;
+}
+
+.share-button {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.share-button:hover {
+  background-color: var(--background);
+  color: var(--primary);
+  border-color: var(--primary-light);
+}
+
+.share-popover {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 8px 10px;
+  z-index: 100;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.share-popover-message {
+  font-size: 0.75rem;
+  color: var(--success);
+  min-height: 1rem;
+}
+
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.share-option {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.share-option:hover {
+  background-color: var(--background);
+}
+
+/* Highlighted card when navigated via shared link */
+.activity-highlighted {
+  outline: 2px solid var(--primary-light);
+  box-shadow: 0 0 0 4px rgba(83, 75, 174, 0.15);
+  animation: highlight-pulse 1.5s ease-out;
+}
+
+@keyframes highlight-pulse {
+  0% { box-shadow: 0 0 0 6px rgba(83, 75, 174, 0.3); }
+  100% { box-shadow: 0 0 0 4px rgba(83, 75, 174, 0.15); }
+}
+
 /* Search and Filter Components - Updated for Sidebar */
 .search-box {
   display: flex;
