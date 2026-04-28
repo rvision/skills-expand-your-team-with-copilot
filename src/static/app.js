@@ -655,14 +655,14 @@ document.addEventListener("DOMContentLoaded", () => {
       await navigator.clipboard.writeText(shareUrl);
       popoverMessage.textContent = "✅ Link copied!";
     } catch (err) {
-      // Fallback for browsers that don't support clipboard API
+      // Legacy fallback for very old browsers without clipboard API support
       const textarea = document.createElement("textarea");
       textarea.value = shareUrl;
       textarea.style.position = "fixed";
       textarea.style.opacity = "0";
       document.body.appendChild(textarea);
       textarea.select();
-      document.execCommand("copy");
+      document.execCommand("copy"); // deprecated but used as last-resort fallback
       document.body.removeChild(textarea);
       popoverMessage.textContent = "✅ Link copied!";
     }
@@ -680,7 +680,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const activityName = params.get("activity");
     if (!activityName) return;
 
-    // Poll briefly until the card is rendered
+    // Poll until the card is rendered (max ~4 seconds)
+    const MAX_POLL_ATTEMPTS = 20;
+    const POLL_INTERVAL_MS = 200;
     let attempts = 0;
     const interval = setInterval(() => {
       const shareBtn = document.querySelector(
@@ -691,10 +693,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = shareBtn.closest(".activity-card");
         card.classList.add("activity-highlighted");
         card.scrollIntoView({ behavior: "smooth", block: "center" });
-      } else if (++attempts > 20) {
+      } else if (++attempts > MAX_POLL_ATTEMPTS) {
         clearInterval(interval);
       }
-    }, 200);
+    }, POLL_INTERVAL_MS);
   }
 
   // Event listeners for search and filter
